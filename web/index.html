@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>fintech-inshorts — BFSI cards for operators</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">fintech<span>·inshorts</span></div>
+    <div class="meta" id="meta">loading…</div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button data-cat="all" class="tab active">All</button>
+    <button data-cat="rbi" class="tab">RBI</button>
+    <button data-cat="npci" class="tab">NPCI</button>
+    <button data-cat="sebi" class="tab">SEBI</button>
+    <button data-cat="irdai" class="tab">IRDAI</button>
+    <button data-cat="funding" class="tab">Funding</button>
+    <button data-cat="personnel" class="tab">Personnel</button>
+    <button data-cat="fraud" class="tab">Fraud</button>
+    <button data-cat="vendor" class="tab">Vendor</button>
+    <button data-cat="operator" class="tab">Operator</button>
+  </nav>
+
+  <main class="feed" id="feed"></main>
+
+  <footer class="footer">
+    <span id="count"></span>
+    <span> · swipe / scroll to navigate · tap card to view source</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

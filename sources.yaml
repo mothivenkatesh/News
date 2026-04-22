@@ -1,0 +1,186 @@
+# Fintech Inshorts — source registry
+# Each source: id, name, type (rss|html), url, category_hint, weight (1-10), enabled
+#
+# category_hint maps to one of the 8 card buckets:
+#   rbi | npci | sebi | irdai | funding | personnel | fraud | vendor | operator
+#
+# weight: priority for ranking when there's an overflow of cards in a day
+
+sources:
+  # ── REGULATOR PRIMARY (highest weight) ────────────────────────────────
+  - id: rbi_notifications
+    name: RBI Notifications
+    type: rss
+    url: https://rbi.org.in/notifications_rss.xml
+    category_hint: rbi
+    weight: 10
+    enabled: true
+
+  - id: rbi_press_releases
+    name: RBI Press Releases
+    type: rss
+    url: https://rbi.org.in/pressreleases_rss.xml
+    category_hint: rbi
+    weight: 10
+    enabled: true
+
+  - id: rbi_speeches
+    name: RBI Speeches
+    type: rss
+    url: https://rbi.org.in/speeches_rss.xml
+    category_hint: rbi
+    weight: 7
+    enabled: true
+
+  # ── FINTECH/STARTUP PRESS ─────────────────────────────────────────────
+  - id: inc42
+    name: Inc42
+    type: rss
+    url: https://inc42.com/feed/
+    category_hint: funding
+    weight: 7
+    enabled: true
+
+  - id: entrackr
+    name: Entrackr
+    type: rss
+    url: https://entrackr.com/rss
+    category_hint: funding
+    weight: 8
+    enabled: true
+
+  - id: indianstartupnews
+    name: Indian Startup News
+    type: rss
+    url: https://indianstartupnews.com/rss
+    category_hint: funding
+    weight: 8
+    enabled: true
+
+  - id: medial
+    name: Medial
+    type: html
+    url: https://medial.app/news
+    scraper: medial
+    category_hint: funding
+    weight: 4   # lower than ISN since Medial republishes it; title-hash dedup handles overlap
+    enabled: true
+
+  # ── MAINSTREAM BFSI PRESS (try-first list; some need fallback scrapers) ─
+  - id: etbfsi
+    name: ET BFSI
+    type: rss
+    url: https://bfsi.economictimes.indiatimes.com/rss/topstories
+    category_hint: rbi
+    weight: 9
+    enabled: true
+
+  - id: livemint_companies
+    name: LiveMint - Companies
+    type: rss
+    url: https://www.livemint.com/rss/companies
+    category_hint: funding
+    weight: 7
+    enabled: true
+
+  - id: business_standard_finance
+    name: Business Standard - Finance
+    type: rss
+    url: https://www.business-standard.com/rss/finance-103.rss
+    category_hint: rbi
+    weight: 7
+    enabled: true
+
+  - id: businessline_money_banking
+    name: The Hindu BusinessLine - Money & Banking
+    type: rss
+    url: https://www.thehindubusinessline.com/money-and-banking/feeder/default.rss
+    category_hint: personnel
+    weight: 7
+    enabled: true
+
+  - id: financial_express_industry
+    name: Financial Express - Industry
+    type: rss
+    url: https://www.financialexpress.com/about/industry/feed/
+    category_hint: funding
+    weight: 6
+    enabled: true
+
+  - id: moneycontrol_business
+    name: MoneyControl - Business
+    type: rss
+    url: https://www.moneycontrol.com/rss/business.xml
+    category_hint: rbi
+    weight: 6
+    enabled: true
+
+  # ── SPECIALTY FINTECH/PAYMENTS ────────────────────────────────────────
+  - id: moneylife
+    name: MoneyLife
+    type: rss
+    url: https://www.moneylife.in/rss.html
+    category_hint: fraud
+    weight: 8
+    enabled: true
+
+  - id: cafemutual
+    name: Cafemutual
+    type: rss
+    url: https://cafemutual.com/rss/news
+    category_hint: rbi
+    weight: 6
+    enabled: true
+
+  - id: ibs_intelligence
+    name: IBS Intelligence
+    type: rss
+    url: https://ibsintelligence.com/feed/
+    category_hint: vendor
+    weight: 5
+    enabled: true
+
+  - id: finextra
+    name: Finextra
+    type: rss
+    url: https://www.finextra.com/rss/headlines.aspx
+    category_hint: vendor
+    weight: 4
+    enabled: true
+
+  # ── HTML SCRAPE TARGETS (no RSS) ──────────────────────────────────────
+  - id: npci_circulars_upi
+    name: NPCI - UPI Circulars
+    type: html
+    url: https://www.npci.org.in/what-we-do/upi/circular
+    scraper: npci
+    category_hint: npci
+    weight: 10
+    enabled: true
+
+  - id: sebi_circulars
+    name: SEBI - Circulars
+    type: html
+    url: https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=6
+    scraper: sebi
+    category_hint: sebi
+    weight: 9
+    enabled: true
+
+  - id: irdai_circulars
+    name: IRDAI - Circulars
+    type: html
+    url: https://irdai.gov.in/web/guest/document-detail
+    scraper: irdai
+    category_hint: irdai
+    weight: 8
+    enabled: true
+
+  - id: mmdpc_nbfc_tracker
+    name: MMDPC - NBFC License Tracker
+    type: html
+    url: https://mmdpc.in/category/rbi-cancels-nbfcs/
+    scraper: generic_blog
+    category_hint: rbi
+    weight: 8
+    enabled: true

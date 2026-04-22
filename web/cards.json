@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-04-22T21:16:20.001688+00:00",
+  "count": 5,
+  "cards": [
+    {
+      "id": "05af0eb0406d7524",
+      "headline": "RBI releases draft Master Direction on Prepaid Payment Instruments (PPIs)",
+      "body": "The RBI released a draft Master Direction on Prepaid Payment Instruments (PPIs) following a comprehensive review of existing guidelines. Regulated entities and stakeholders can submit feedback on the draft direction until May 22, 2026, via the 'Connect 2 Regulate' section.",
+      "category": "rbi",
+      "source_name": "RBI Press Releases",
+      "source_url": "http://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=62602",
+      "published_at": "2026-04-22T17:40:00+00:00",
+      "fetched_at": "2026-04-22T21:14:22.655176+00:00",
+      "importance": 10,
+      "image_url": null,
+      "breaking": true,
+      "why_it_matters": "All PPI operators must review the draft guidelines as they signal significant changes to operational compliance and risk management."
+    },
+    {
+      "id": "239c4ca3a0fbffa8",
+      "headline": "RBI publishes minutes of the Monetary Policy Committee meeting",
+      "body": "The RBI published the minutes of the MPC meeting held from April 6 to 8, 2026. The minutes detail the resolution adopted, the vote of each member, and statements made by all committee members. This document provides a comprehensive view of the monetary policy deliberations.",
+      "category": "rbi",
+      "source_name": "RBI Press Releases",
+      "source_url": "http://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=62599",
+      "published_at": "2026-04-22T17:00:00+00:00",
+      "fetched_at": "2026-04-22T21:16:19.990767+00:00",
+      "importance": 6,
+      "image_url": null,
+      "breaking": false,
+      "why_it_matters": "Fintech operators should review the minutes to understand the RBI's current stance on liquidity and lending rates."
+    },
+    {
+      "id": "bf12cda6656540f4",
+      "headline": "RBI releases FDI company financial data for 2024-25",
+      "body": "RBI published data on the financial performance of 3,100 non-government FDI companies for 2022-23 to 2024-25. The data, based on Ind-AS audited accounts, shows net sales growth moderating to 8.7% in 2024-25. Services sector growth was 12.7%, while manufacturing slowed to 5.1%.",
+      "category": "rbi",
+      "source_name": "RBI Press Releases",
+      "source_url": "http://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=62601",
+      "published_at": "2026-04-22T17:30:00+00:00",
+      "fetched_at": "2026-04-22T21:15:08.548599+00:00",
+      "importance": 4,
+      "image_url": null,
+      "breaking": false,
+      "why_it_matters": "Fintech risk and compliance teams use this data to gauge the financial health and sector exposure of foreign-linked entities."
+    },
+    {
+      "id": "203e68d428650814",
+      "headline": "SGB 2018-19 Series-II: Redemption Price Set for Premature Redemption",
+      "body": "Premature redemption of SGB 2018-19 Series-II is permitted after five years from the issue date. The redemption price for the tranche due on April 23, 2026, is set at ₹15,219 per unit. This price is based on the simple average of the closing gold prices from the previous three business days.",
+      "category": "rbi",
+      "source_name": "RBI Press Releases",
+      "source_url": "http://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=62603",
+      "published_at": "2026-04-22T17:55:00+00:00",
+      "fetched_at": "2026-04-22T21:13:46.360694+00:00",
+      "importance": 3,
+      "image_url": null,
+      "breaking": false,
+      "why_it_matters": "This affects retail investors and gold product operators by setting the specific redemption price for SGB units."
+    },
+    {
+      "id": "fc1240e16dd62542",
+      "headline": "RBI releases Reserve Money data for week ended April 15, 2026",
+      "body": "The RBI has published the Reserve Money data for the week ended April 15, 2026. This data provides insights into the liquidity position of the banking system and overall monetary conditions. Operators should review the figures for liquidity trend analysis.",
+      "category": "rbi",
+      "source_name": "RBI Press Releases",
+      "source_url": "http://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=62600",
+      "published_at": "2026-04-22T17:05:00+00:00",
+      "fetched_at": "2026-04-22T21:15:43.188617+00:00",
+      "importance": 1,
+      "image_url": null,
+      "breaking": false,
+      "why_it_matters": "This data helps operators gauge systemic liquidity, informing their treasury and risk management strategies."
+    }
+  ]
+}
