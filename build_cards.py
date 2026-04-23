@@ -96,11 +96,29 @@ def main() -> int:
         logger.info("No new stories — keeping existing cards.json untouched.")
         return 0
 
-    # 3. LLM card generation via Ollama
+    # 3. LLM card generation via Ollama (diversity-aware selection inside)
     max_cards = int(os.getenv('CARDS_PER_RUN', '20'))
+    min_importance = int(os.getenv('MIN_IMPORTANCE', '4'))  # drop cards below this — bumped to 4 to filter off-topic insurtech/gaming/macro noise
+    min_feed_size = int(os.getenv('MIN_FEED_SIZE', '5'))    # but keep at least this many
     logger.info(f"Generating cards (max {max_cards}) via Ollama...")
-    new_cards = generate_cards(new_stories, max_cards=max_cards)
-    logger.info(f"Generated {len(new_cards)} cards")
+    raw_cards = generate_cards(new_stories, max_cards=max_cards)
+    logger.info(f"Generated {len(raw_cards)} raw cards")
+
+    # 3b. Filter by importance, with a floor to avoid an empty feed on slow days
+    high_signal = [c for c in raw_cards if c.importance >= min_importance]
+    if len(high_signal) >= min_feed_size:
+        new_cards = high_signal
+        dropped = len(raw_cards) - len(new_cards)
+        if dropped:
+            logger.info(f"Dropped {dropped} low-importance cards (importance < {min_importance})")
+    else:
+        # Not enough high-signal — keep top N by importance to ensure feed isn't empty
+        raw_cards.sort(key=lambda c: -c.importance)
+        new_cards = raw_cards[:max(min_feed_size, len(high_signal))]
+        logger.info(
+            f"Only {len(high_signal)} cards met threshold; "
+            f"keeping top {len(new_cards)} by importance to maintain min_feed_size"
+        )
 
     # 4. Merge with existing cards.json (keep older cards visible until they age out)
     existing: list[dict] = []

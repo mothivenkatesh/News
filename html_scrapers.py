@@ -35,6 +35,42 @@ def _safe_get(url: str, timeout: int = 30) -> str | None:
         return None
 
 
+def fetch_og_image(url: str, timeout: int = 6) -> str | None:
+    """Fetch the article page and extract <meta property="og:image">.
+    Falls back to twitter:image and to the first <img> in <article>. Returns None on failure.
+    """
+    if not url or not url.startswith(('http://', 'https://')):
+        return None
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=timeout, allow_redirects=True)
+        r.raise_for_status()
+        soup = BeautifulSoup(r.text, 'lxml')
+
+        # 1. Open Graph image (most reliable)
+        meta = soup.find('meta', property='og:image') or soup.find('meta', attrs={'property': 'og:image'})
+        if meta and meta.get('content'):
+            return meta['content'].strip()
+
+        # 2. Twitter card image
+        meta = soup.find('meta', attrs={'name': 'twitter:image'}) or soup.find('meta', attrs={'name': 'twitter:image:src'})
+        if meta and meta.get('content'):
+            return meta['content'].strip()
+
+        # 3. First image in <article> tag
+        article = soup.find('article')
+        if article:
+            img = article.find('img', src=True)
+            if img:
+                src = img['src']
+                if not src.startswith('http'):
+                    src = urljoin(url, src)
+                return src
+        return None
+    except Exception as e:
+        logger.debug(f"OG image fetch failed for {url}: {e}")
+        return None
+
+
 def _make_story(source: dict, title: str, link: str, published: datetime, summary: str = "") -> Story:
     return Story(
         source_id=source['id'],

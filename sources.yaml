@@ -1,13 +1,22 @@
-# Fintech Inshorts — source registry
+# Fintech Inshorts: source registry
 # Each source: id, name, type (rss|html), url, category_hint, weight (1-10), enabled
 #
-# category_hint maps to one of the 8 card buckets:
+# category_hint maps to one of the 9 card buckets:
 #   rbi | npci | sebi | irdai | funding | personnel | fraud | vendor | operator
 #
 # weight: priority for ranking when there's an overflow of cards in a day
+#         (higher = more likely to be picked when diversity caps allow)
+#
+# WEIGHT GUIDANCE (payments + lending focused product):
+#   10: pure payments/lending regulator (RBI, NPCI) or BFSI-focused press (ETBFSI)
+#    8-9: India fintech press that breaks payments/lending stories (Inc42, Entrackr, ISN, BusinessLine)
+#    5-7: general business press with some payments/lending coverage (LiveMint, MoneyControl)
+#    2-4: global / off-topic (Finextra, IBS Intelligence) — kept for occasional India relevance
+#    Topic filtering happens LLM-side: off-topic stories get importance 1-2 and the
+#    MIN_IMPORTANCE filter in build_cards.py drops them.
 
 sources:
-  # ── REGULATOR PRIMARY (highest weight) ────────────────────────────────
+  # ── REGULATOR PRIMARY (highest weight; payments + lending core) ───────
   - id: rbi_notifications
     name: RBI Notifications
     type: rss
@@ -32,13 +41,13 @@ sources:
     weight: 7
     enabled: true
 
-  # ── FINTECH/STARTUP PRESS ─────────────────────────────────────────────
+  # ── FINTECH/STARTUP PRESS (India payments + lending coverage) ────────
   - id: inc42
     name: Inc42
     type: rss
     url: https://inc42.com/feed/
     category_hint: funding
-    weight: 7
+    weight: 8
     enabled: true
 
   - id: entrackr
@@ -46,7 +55,7 @@ sources:
     type: rss
     url: https://entrackr.com/rss
     category_hint: funding
-    weight: 8
+    weight: 9
     enabled: true
 
   - id: indianstartupnews
@@ -63,16 +72,16 @@ sources:
     url: https://medial.app/news
     scraper: medial
     category_hint: funding
-    weight: 4   # lower than ISN since Medial republishes it; title-hash dedup handles overlap
+    weight: 4   # secondary aggregator; title-hash dedup handles overlap with ISN
     enabled: true
 
-  # ── MAINSTREAM BFSI PRESS (try-first list; some need fallback scrapers) ─
+  # ── MAINSTREAM BFSI PRESS ─────────────────────────────────────────────
   - id: etbfsi
     name: ET BFSI
     type: rss
     url: https://bfsi.economictimes.indiatimes.com/rss/topstories
     category_hint: rbi
-    weight: 9
+    weight: 10   # BFSI-dedicated; highest signal for payments + lending
     enabled: true
 
   - id: livemint_companies
@@ -80,7 +89,7 @@ sources:
     type: rss
     url: https://www.livemint.com/rss/companies
     category_hint: funding
-    weight: 7
+    weight: 5   # general business; payments/lending relevance is intermittent
     enabled: true
 
   - id: business_standard_finance
@@ -96,7 +105,7 @@ sources:
     type: rss
     url: https://www.thehindubusinessline.com/money-and-banking/feeder/default.rss
     category_hint: personnel
-    weight: 7
+    weight: 8   # banking + lending coverage is solid here
     enabled: true
 
   - id: financial_express_industry
@@ -112,7 +121,7 @@ sources:
     type: rss
     url: https://www.moneycontrol.com/rss/business.xml
     category_hint: rbi
-    weight: 6
+    weight: 5
     enabled: true
 
   # ── SPECIALTY FINTECH/PAYMENTS ────────────────────────────────────────
@@ -121,7 +130,7 @@ sources:
     type: rss
     url: https://www.moneylife.in/rss.html
     category_hint: fraud
-    weight: 8
+    weight: 8   # consumer-protection + fraud + NBFC scams; high relevance
     enabled: true
 
   - id: cafemutual
@@ -129,7 +138,7 @@ sources:
     type: rss
     url: https://cafemutual.com/rss/news
     category_hint: rbi
-    weight: 6
+    weight: 4   # MF-focused; some lending overlap
     enabled: true
 
   - id: ibs_intelligence
@@ -137,7 +146,7 @@ sources:
     type: rss
     url: https://ibsintelligence.com/feed/
     category_hint: vendor
-    weight: 5
+    weight: 2   # global banking-tech; rare India-payments relevance
     enabled: true
 
   - id: finextra
@@ -145,7 +154,7 @@ sources:
     type: rss
     url: https://www.finextra.com/rss/headlines.aspx
     category_hint: vendor
-    weight: 4
+    weight: 2   # global; off-topic majority
     enabled: true
 
   # ── HTML SCRAPE TARGETS (no RSS) ──────────────────────────────────────
@@ -155,7 +164,7 @@ sources:
     url: https://www.npci.org.in/what-we-do/upi/circular
     scraper: npci
     category_hint: npci
-    weight: 10
+    weight: 10   # pure payments core
     enabled: true
 
   - id: sebi_circulars
@@ -164,7 +173,7 @@ sources:
     url: https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=6
     scraper: sebi
     category_hint: sebi
-    weight: 9
+    weight: 6   # broker/AMC overlap with NBFC lending
     enabled: true
 
   - id: irdai_circulars
@@ -173,7 +182,7 @@ sources:
     url: https://irdai.gov.in/web/guest/document-detail
     scraper: irdai
     category_hint: irdai
-    weight: 8
+    weight: 5   # insurance overlap with lending distribution
     enabled: true
 
   - id: mmdpc_nbfc_tracker
@@ -182,5 +191,5 @@ sources:
     url: https://mmdpc.in/category/rbi-cancels-nbfcs/
     scraper: generic_blog
     category_hint: rbi
-    weight: 8
+    weight: 9   # NBFC license actions = pure lending signal
     enabled: true
